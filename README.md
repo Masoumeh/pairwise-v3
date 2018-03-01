@@ -1,2 +1,2 @@
 # KITAB Project
-## Pairwise Alignment Version 4
+## Pairwise Alignment Version 3
