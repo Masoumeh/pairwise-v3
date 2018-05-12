@@ -1,0 +1,23 @@
+{
+  "name": "pairwise-v3",
+  "version": "1.0.0",
+  "description": "KITAB V3 - NodeJS",
+  "main": "app.js",
+  "dependencies": {
+    "formidable": "^1.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sohailmerchant/pairwise-v3.git"
+  },
+  "author": "KITAB",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sohailmerchant/pairwise-v3/issues"
+  },
+  "homepage": "https://github.com/sohailmerchant/pairwise-v3#readme"
+}
