@@ -175,3 +175,8 @@ selection,
 .loader-btn:hover {
   background: green;
 }
+
+.half-width {
+  width: 50%;
+}
+

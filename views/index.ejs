@@ -18,7 +18,14 @@
 
 <body>
 
-	<div id="book-details"></div>
+	<div id="file-upload" class="half-width">
+		<form action="/" enctype="multipart/form-data" method="post">
+			<input type="file" name="file-to-upload">
+			<input type="submit" value="Upload">
+		</form>
+
+	</div>
+	<div id="book-details" class="half-width"></div>
 	<div id="main">
 		<div id="chartBox" class="chart-box"></div>
 	</div>

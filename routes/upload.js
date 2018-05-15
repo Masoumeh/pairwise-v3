@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const formidable = require('formidable');
-5
+
 
 router.post('/', (req, res) => {
     var form = new formidable.IncomingForm();
@@ -9,7 +9,8 @@ router.post('/', (req, res) => {
     form.parse(req);
 
     form.on('fileBegin', function (name, file){
-        file.path = __dirname + '/uploads/' + file.name;
+        file.path = __dirname + '/Upload/'+dataFile;
+        console.log(file.path)
     });
 
     form.on('file', function (name, file){

@@ -1,7 +1,0 @@
-select ID, count(ITEM) from (select ID from
-(select ID,ITEM
-from(select ID from dataUniItems where ITEM = 'khedive')
-join (select ID,ITEM from dataUniItems where CAT = 'yede') using(ID))
-where ITEM < 2000 and ITEM > 1500)
-join (select ID, ITEM from dataUniItems  where CAT = 'topo') using(ID)
-group by ITEM
