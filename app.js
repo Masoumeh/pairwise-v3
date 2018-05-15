@@ -1,60 +1,45 @@
-var http = require('http');
-var formidable = require('formidable');
-var fs = require('fs');
+var createError = require('http-errors');
+var express = require('express');
 var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
 
-var datadir = './data-file/';
-var files = fs.readdirSync(datadir);
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var uploadRouter = require('./routes/upload');
 
-http.createServer(function (req, res) {
-  if (req.url == '/fileupload') {
-    var form = new formidable.IncomingForm();
-    form.parse(req, function (err, fields, files) {
-      var oldpath = files.filetoupload.path;
-      var newpath = datadir + files.filetoupload.name;
-      var filetype = files.
+var app = express();
+// app.use(formidable());
+console.log(__dirname);
+app.use(express.static(path.join(__dirname, 'public')));
 
-      
-      fs.copyFile(oldpath, newpath, function (err) {
-        if (err) throw err;
-        res.write('File successfully uploaded!');
-        res.write(newpath);
-        res.end();
-      });
-    });
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
-      
-  } else {
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.write('<form action="fileupload" method="post" enctype="multipart/form-data">');
-    res.write('<input type="file" name="filetoupload"><br>');
-    res.write('<input type="submit">');
-    res.write('</form>');
-    return res.end();
-  }
-}).listen(8081);
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/upload',uploadRouter);
 
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
 
-(function getFiles() {
-  fs.readdir('./data-file/', function (err, items) {
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-    for (var i = 0; i < items.length; i++) {
-      if (path.extname(items[i]) === ".srt") {
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
 
-        if(items[i].includes("_"))
-        {
-          var filename_split = files[i].split("_");
-          newfilename = filename_split[1].split(".");
-
-          
-          console.log( {
-            book_1_uri : filename_split[0],
-            book_2_uri : newfilename[0],
-          }
-        )
-        }
-      }
-    }
-  });
-})();
+module.exports = app;

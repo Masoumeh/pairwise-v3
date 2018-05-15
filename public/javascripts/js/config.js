@@ -5,8 +5,8 @@
   exports.srt_data_path = 'data-file/{file_name}';
   exports.meta_data_path = 'data-file/metadata.txt';
   exports.web_worker_path = {
-    load_chunks: 'web-worker/load-chunks-worker.js',
-    load_inial_data: 'web-worker/load-initial-data-worker.js'
+    load_chunks: 'javascripts/web-worker/load-chunks-worker.js',
+    load_inial_data: 'javascripts/web-worker/load-initial-data-worker.js'
   };
   exports.book_content_url = 'https://raw.githubusercontent.com/OpenITI/i.mech/master/data/{book_id}-ara1-{page_string}';
   exports.book_github_url = 'https://raw.githubusercontent.com/OpenITI/i.mech/master/data/{book_id}-ara1';
