@@ -1,5 +1,5 @@
 body {
-  font: 10px sans-serif;
+  font: .9em sans-serif;
 }
 
 .chart-box {
@@ -178,5 +178,11 @@ selection,
 
 .half-width {
   width: 50%;
+  margin: 20px;
+  /*display: inline-block;*/
+}
+
+.inline {
+  display: inline-block;
 }
 

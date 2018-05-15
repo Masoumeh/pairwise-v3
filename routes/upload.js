@@ -9,14 +9,11 @@ router.post('/', (req, res) => {
     form.parse(req);
 
     form.on('fileBegin', function (name, file){
-        file.path = __dirname + '/Upload/'+dataFile;
-        console.log(file.path)
+        file.path = __dirname + '/../public/data-file/book1_book2.srt'; //+ file.name;
     });
 
     form.on('file', function (name, file){
-        console.log('Uploaded ' + file.name);
+        res.render('index', { names : file.name });
     });
-
-    res.render('index', { title: 'Express' });
 });
 module.exports = router;

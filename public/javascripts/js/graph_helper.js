@@ -57,7 +57,6 @@
 
     function initData(data) {
         chartData = data;
-        console.log(chartData[0]);
     }
 
     var maxValues = {
