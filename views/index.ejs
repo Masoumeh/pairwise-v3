@@ -19,15 +19,21 @@
 <body>
 
 
-	<div id="file-upload" class="half-width">
-		<p clas="half-width">Upload a file:</p>
+	<div id="file-upload" >
+		<!--<p clas="half-width">Upload a file:</p>-->
 		<form action="/upload" enctype="multipart/form-data" method="post">
-			<input type="file" name="file-to-upload" class="inline">
-			<input type="submit" value="upload" class="inline">
+			<!--<input type="file" name="file-to-upload" class="inline">-->
+			<!--<input type="submit" value="upload" class="inline">-->
+			<label class="up_styles">
+				<input type="file" name="upload" multiple />
+			</label>
+			<!--<br>-->
+			<!-- Button to upload the choosed files -->
+			<input class="sub" type="submit" value="Upload">
 		</form>
 
 	</div>
-	<hr/>
+
 	<div id="book-details" class="half-width"></div>
 	<div id="main">
 		<div id="chartBox" class="chart-box"></div>
