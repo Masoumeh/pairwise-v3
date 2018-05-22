@@ -224,6 +224,7 @@
         t.on('end', function () {
             exports.animating = false;
         });
+        // });
 
         // - render Bars of Book1 and Book2 ::
         book1Bars.selectAll(".bar")

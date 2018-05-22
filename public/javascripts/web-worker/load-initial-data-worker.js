@@ -51,7 +51,6 @@ function parseMetaDataFile(fileStr, config, bookUris) {
 function loadXhr(url, callback) {
   var baseUrl = location.href.replace(location.pathname, '/');
   var xhr = new XMLHttpRequest();
-  console.log(url);
   xhr.open('GET', baseUrl + url, true);
   xhr.onload = function (e) {
     if (xhr.readyState === 4) {
