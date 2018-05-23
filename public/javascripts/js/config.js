@@ -37,12 +37,15 @@
     { key: 'book1_y2', cell: 3, type: 'number' },
     { key: 'book1_raw_content', cell: 1, type: 'string' },
     { key: 'book1_content', cell: 1, type: 'normalizedText' },
+    { key: 'book1_precision', cell: 12, type: 'number' },
+
 
     { key: 'book2_id', key2: 'book2_chunk', cell: 6, type: 'extract' },
     { key: 'book2_y1', cell: 8, type: 'number' },
     { key: 'book2_y2', cell: 9, type: 'number' },
     { key: 'book2_raw_content', cell: 7, type: 'string' },
-    { key: 'book2_content', cell: 7, type: 'normalizedText' }
+    { key: 'book2_content', cell: 7, type: 'normalizedText' },
+    { key: 'book2_precision', cell: 13, type: 'number' }
   ];
 
 })(window.config = {});

@@ -48,6 +48,7 @@
     function onInitData(e) {
       var srtData = e.data[0];
       var selectedMetadata = e.data[1];
+      console.log(selectedMetadata)
       graph.setMaxValue(selectedMetadata.map(function (d) {
         return d.book_chunk_count;
       }));

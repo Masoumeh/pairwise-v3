@@ -40,11 +40,12 @@
 
     var selectedLine = null;
     var connColor = '#FFCC66', connHColor = '#ff9600',
+        precisionColor = '#356f53',
         hoverStrokeWidth = 3, barWidth = 0.5;
 
     var chartData = null, chartMetaData, refLinesData = null, hoverLines = [{}, {}];
     var chartBox, svgD3, drawingG, marksG, clipRect, x0ScaleNode, x1ScaleNode, bookDetails;
-    var book1Bars, connections, book2Bars, brushG;
+    var book1Bars, book1Scores, connections, book2Bars, book2Scores, brushG;
 
     var xScale, xScaleIdentity, x0Axis, x1Axis;
     var y0Scale, y0Axis, y1Scale, y1Axis;
@@ -142,6 +143,7 @@
         // --- Set Scales on Basis of the chartData ::
 
         max = maxValues;
+        console.log(max)
         xIdentityDomain = [0, max.peek];
         currentXDomain || (currentXDomain = xIdentityDomain);
         xScale.domain(currentXDomain).range([1, width - 1]);
@@ -162,7 +164,10 @@
     }
     function drawChart() {
 
-
+        // SORT THE chartData
+        // chartData.sort(function(a, b) {
+        //     return a.book1_chunk - b.book1_chunk;
+        // });
         // - Hover Lines ::
         drawingG.selectAll(".dotted-bar-lines")
             .data(hoverLines)
@@ -181,6 +186,27 @@
 
         book1BarNodes.exit().remove();
         // --- Draw Book1 Bar Chart [END] :::
+
+        // --- Draw Book1 precision [START] :::
+        var book1PrecisionLine = d3.line()
+            .curve(d3.curveMonotoneX)
+            .x(function(d) { return xScale(d.book1_chunk); })
+            .y(function(d) { return y0Scale(d.book1_precision); });
+
+
+        var precision1Nodes = drawingG.append("path")
+            .attr("id", "book1Precision")
+            .data([chartData.sort(function(a, b) {
+                return a.book1_chunk - b.book1_chunk;
+            })])
+            // .transition(t)
+            .attr("d", book1PrecisionLine)
+            .attr("class", "precision")
+            .attr("fill", "none")
+            .attr("stroke", precisionColor);
+
+        precision1Nodes.exit().remove();
+        // --- Draw Book1 precision [END] :::
 
         // --- Draw Connections Curves [START] :::
         var connectionNodes = connections.selectAll("path")
@@ -203,6 +229,30 @@
 
         book2BarNodes.exit().remove();
         // --- Draw Book2 Bar Chart [END] :::
+
+        // --- Draw Book2 precision [START] :::
+        var book2PrecisionLine = d3.line()
+            .curve(d3.curveMonotoneX)
+            .x(function(d) { return xScale(d.book2_chunk); })
+            .y(function(d) { return y1Scale(d.book2_precision); });
+
+        // SORT THE chartData
+        // chartData.sort(function(a, b) {
+        //     return a.book2_chunk - b.book2_chunk;
+        // });
+        var precision2Nodes = book2Bars.append("path")
+            .data([chartData.sort(function(a, b) {
+                return a.book2_chunk - b.book2_chunk;
+            })])
+        // .transition(t)
+            .attr("d", book2PrecisionLine)
+            .attr("class", "precision")
+            .attr("fill", "none")
+            .attr("stroke", precisionColor);
+
+        // precision2Nodes.exit().remove();
+
+        // --- Draw Book2 precision [END] :::
 
         // - Append Brush
         brushG.call(brushHandle)
@@ -237,6 +287,15 @@
             .attr("y1", function (d) { return y0Scale(d.book1_y1); })
             .attr("y2", function (d) { return y0Scale(d.book1_y2); });
 
+        // - render Book1 precision ::
+        // var lineFunction = d3.line()
+        //     .curve(d3.curveMonotoneX)
+        //     .x(function(d) { return xScale(d.book1_chunk); })
+        //     .y(function(d) { return y0Scale(d.book1_precision); });
+        // book1Bars.select("#book1Precision")
+        //     // .on("click", selectLineOnClicked)
+        //     .attr("d", lineFunction)
+
         // - render Connection Curves ::
         connections.selectAll("path")
             .on("mouseover", mouseOver)
@@ -244,7 +303,8 @@
             .on("click", selectLineOnClicked)
             .transition(t)
             .attr("d", function (d) {
-                return "M " + xScale(d.book1_chunk) + " 150 C " + xScale(d.book1_chunk) + " 250," + xScale(d.book2_chunk) + " 220 , " + xScale(d.book2_chunk) + " " + 300;
+                return "M " + xScale(d.book1_chunk) + " 150 C " + xScale(d.book1_chunk) + " 250,"
+                    + xScale(d.book2_chunk) + " 220 , " + xScale(d.book2_chunk) + " " + 300;
             });
 
         // - render Bars of Book2 ::
