@@ -224,8 +224,6 @@
             .style("visibility", "visible")
             .style("stroke-width", precisionWidth);
 
-
-
         precision2Nodes.exit().remove();
 
         // --- Draw Book2 precision [END] :::
@@ -241,6 +239,8 @@
             .enter().append("line")
             .attr("clip-path", clipPath)
             .attr("class", "max-reference-lines");
+
+    d3.select("#precisionCheckbox").on("change",togglePrecisionLines)
     }
     function updateChart(duration) {
         var t = svgD3.transition().duration(duration || 0);
@@ -504,6 +504,13 @@
         var currentOpacity = d3.select(this).style("opacity");
         var newOpacity = currentOpacity == 1 ? 0.3 : 1;
         d3.select(this).style("opacity", newOpacity);
+    }
+
+    function togglePrecisionLines() {
+        var preLines = d3.selectAll(".precision");
+        var currentVisibility = preLines.style("visibility");
+        var newVisibility = currentVisibility == "visible" ? "hidden" : "visible";
+        preLines.style("visibility", newVisibility);
     }
 
 })(window.graphHelper = {});
