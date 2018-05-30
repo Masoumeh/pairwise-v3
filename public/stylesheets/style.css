@@ -224,4 +224,8 @@ input[type=submit]:hover {
           /*#3385ff;*/
 }
 
+.checkBox {
+  width: 2%;
+  margin-left: 2%;
+}
 
